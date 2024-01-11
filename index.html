@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- TAILWINDCSS LINK -->
+  <!-- TAILWIND CSS LINK -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
+
   <title>TO-DO LIST</title>
 </head>
 <body class="box-border m-0 p-0 bg-blue-400 w-full h-full font-['Poppins']">
@@ -19,17 +19,10 @@
     <div class="w-4/12 left">
       <h2 class="text-white text-2xl font-bold mb-6">My Lists</h2>
       <div class="" id="list-table">
-        <ul class="mb-6 flex flex-col gap-2 ml-3 cursor-pointer" data-lists>
-          <!-- <li class="text-zinc-700 text-xl font-regular active-list">+ <span id="">YouTube</span></li>
-          <li class="text-zinc-700 text-xl font-regular">+ <span id="">Work</span></li>
-          <li class="text-zinc-700 text-xl font-regular">+ <span id="">Grocery</span></li> -->
-        </ul>
+        <ul class="mb-6 flex flex-col gap-2 ml-3 cursor-pointer" data-lists></ul>
       </div>
       <div class="w-10/12 flex flex-col-reverse items-center gap-4">
         <button class="text-white text-xl cursor-pointer hover:text-gray-900 transition-all ease-in-out duration-300" id="delete-selected-list">Delete list</button>
-        .
-
-       /3+69-*
         <button 
           class="border-solid border-transparent border bg-white w-full p-3 text-slate-900 text-xl cursor-pointer hover:bg-transparent hover:text-white hover:border-white transition-all ease-in-out duration-500 rounded"
           id="add-new-list-btn">Add new list</button>
@@ -40,22 +33,22 @@
       </div>
     </div>
     <div class="w-8/12 right">
-      <div class="w-full">
+      <div class="w-full" id="list-display-container">
         <div class="w-full bg-gray-200 py-8 px-5 flex justify-between items-center">
-          <h1 class="text-3xl font-bold text-slate-800">YouTube</h1>
-          <p class="text-gray-900"><span class="">0</span> actions remaining</p>
+          <h1 class="text-3xl font-bold text-slate-800" id="list-title">YouTube</h1>
+          <p class="text-gray-900" id="list-count">0 task(s) remaining</p>
         </div>
         <div class="w-full bg-white p-6 mb-6 ">
-          <div class=""></div>
           <div class="flex items-center gap-8">
-            <input type="text" class="border-b border-solid border-slate-500 p-4 outline-none w-9/12" id="action-input">
+            <input type="text" class="border-b border-solid border-slate-500 p-2 text-xl outline-none w-9/12" id="new-task-input">
             <button class="border-solid 
-            border-slate-900 border bg-slate-900 8//9*++py-4 text-white text-slate-900 *-text-xl cursor-pointer hover:bg-transparent hover:text-slate-900 transition-all ease-in-out duration-500 rounded mr-2 w-3/12">Add new task</button>
+            border-slate-900 border bg-slate-900 py-4 text-white text-slate-900 text-xl cursor-pointer hover:bg-transparent hover:text-slate-900 transition-all ease-in-out duration-500 rounded mr-2 w-3/12" id="add-task-btn">Add new task</button>
           </div>
+          <div class="my-6 flex flex-col gap-4 " id="tasks"></div>
         </div>
       </div>
       <div class="flex justify-between">
-        <button class="text-white text-xl cursor-pointer hover:text-gray-900 transition-all ease-in-out duration-300" id="">Clear current list</button>
+        <button class="text-white text-xl cursor-pointer hover:text-gray-900 transition-all ease-in-out duration-300" id="clear-complete-task-btn">Clear current list</button>
         
       </div>
     </div>
@@ -76,6 +69,16 @@
   </style>
   
   <script src="main.js"></script>
+  <template id="task-template">
+    <div class="my-6 flex flex-col gap-4 " id="tasks">
+      <div class="flex items-center gap-3 task">
+        <input type="checkbox">
+        <label>
+          <span class="custom-checkbox"></span>
+          another task
+        </label>
+      </div>
+  </template>
 </body>
 </html>
 +
