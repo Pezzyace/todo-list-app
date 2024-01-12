@@ -1,21 +1,24 @@
 const listsContainer = document.querySelector('[data-lists]');
 const newListInput = document.querySelector('#list-name-input');
 const addNewListBtn = document.querySelector('#add-new-list-btn');
-const deleteSelectedList = document.querySelector('#delete-selected-list');
+const deleteSelectedListBtn = document.querySelector('#delete-selected-list');
 const listDisplayContainer = document.querySelector('#list-display-container');
 const listTitle = document.querySelector('#list-title');
 const tasksContainer = document.querySelector('#tasks');
 const listCount = document.querySelector('#list-count');
-const taskTemplate = document.getElementById('#task-template');
-const newTaskInput = document.querySelector('#new-task-input');
-const addTaskBtn = document.querySelector('#add-task-btn');
-const clearCompletedTasksBtn = document.querySelector('#clear-complete-task-btn');
+const newTaskInput = document.getElementById('new-task-input');
+const addNewTaskBtn = document.getElementById('add-task-btn');
+const taskTemplate = document.getElementById('task-template')
+const clearCompleteTaskBtn = document.getElementById('clear-complete-task-btn');
+
+
 const LOCAL_STORAGE_LIST_KEY = 'tasks.list';
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'tasks.selectedListId';
+
+
 let lists= JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || [ ];
+
 let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY);
-
-
 
 listsContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'li'){
@@ -27,20 +30,20 @@ listsContainer.addEventListener('click', e => {
 tasksContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'input'){
     const selectedList = lists.find(list => list.id === selectedListId);
-    const selectedTask = selectedList.tasks.find(task => task.id === e.target.id);
+    const selectedTask = selectedList.tasks.find(task => task.id ===e.target.id);
     selectedTask.complete = e.target.checked;
     save();
-    saveAndRender();
+    renderTaskCount();
   }
 })
 
-clearCompletedTasksBtn.addEventListener('click', e => {
+clearCompleteTaskBtn.addEventListener('click', e => {
   const selectedList = lists.find(list => list.id === selectedListId);
   selectedList.tasks = selectedList.tasks.filter(task => !task.complete);
   saveAndRender();
 })
 
-deleteSelectedList.addEventListener('click', e => {
+deleteSelectedListBtn.addEventListener('click', e => {
   lists = lists.filter(list => list.id !== selectedListId);
   selectedListId = null;
   saveAndRender();
@@ -55,11 +58,12 @@ addNewListBtn.addEventListener("click", () => {
   saveAndRender();
 })
 
-addTaskBtn.addEventListener("click", () => {
+addNewTaskBtn.addEventListener("click", () => {
   const taskName = newTaskInput.value;
   if(taskName == null || taskName === '') return;
-  const task = createTask(taskName);
-  newTaskInput.value = null;
+  const task = createList(taskName);
+  newListInput.value = null;
+  
   const selectedList = lists.find(list => list.id === selectedListId);
   selectedList.tasks.push(task);
   saveAndRender();
@@ -70,7 +74,7 @@ function createList(name) {
   return { id: Date.now().toString(), name: name, tasks: [] }
 }
 
-// THIS FUNCTION CREATES A NEW TASK NAME
+// THIS FUNCTION CREATES A NEW TASK 
 function createTask(name) {
   return { id: Date.now().toString(), name: name, complete: false }
 }
@@ -80,6 +84,7 @@ function save() {
   localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists))
   localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId)
 };
+
 
 //THIS FUNCTION CREATES AN ELEMENT 
 function render() {
@@ -117,6 +122,7 @@ function renderTaskCount(selectedList) {
   listCount.innerText = `${incompleteTaskCount} ${taskString} remaining`;
 }
 
+
 function renderList() {
   lists.forEach(list => {
     const listElement = document.createElement('li');
@@ -135,10 +141,9 @@ function clearElement(element) {
     element.removeChild(element.firstChild)
   }
 }
+render();
 
 function saveAndRender() {
   save();
   render();
 }
-
-render();
